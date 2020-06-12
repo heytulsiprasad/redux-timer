@@ -3,12 +3,10 @@ import {
 	DECREMENT,
 	COUNTDOWN,
 	COUNTDOWNATZERO,
-	CREATELAP,
-	REMOVELAP,
 	RESET,
-} from "./actions";
+} from "../actions";
 
-const initialState = { time: { h: 0, m: 0, s: 0 }, seconds: 0, laps: [] };
+const initialState = { time: { h: 0, m: 0, s: 0 }, seconds: 0 };
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -36,22 +34,11 @@ const reducer = (state = initialState, action) => {
 				seconds: 0,
 				time: { h: 0, m: 0, s: 0 },
 			};
-		case CREATELAP:
-			const newLaps = [...state.laps];
-			return {
-				...state,
-				laps: newLaps.concat(state.time),
-			};
-		case REMOVELAP:
-			return {
-				...state,
-				laps: state.laps.filter((item, index) => index !== action.id),
-			};
 		case RESET:
 			return {
+				...state,
 				time: { h: 0, m: 0, s: 0 },
 				seconds: 0,
-				laps: [],
 			};
 		default:
 			return state;

@@ -1,13 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
 
-import reducer from "./store/reducers";
+import timerReducer from "./store/reducers/timer";
+import lapsReducer from "./store/reducers/laps";
 import "./index.css";
 import App from "./App";
 
-const store = createStore(reducer);
+const rootReducer = combineReducers({
+	tmr: timerReducer,
+	lpr: lapsReducer,
+});
+
+const store = createStore(rootReducer);
 
 ReactDOM.render(
 	<Provider store={store}>

@@ -9,6 +9,7 @@ import {
 	CREATELAP,
 	REMOVELAP,
 	RESET,
+	RESETLAPS,
 } from "../../store/actions";
 import Button from "../../components/Buttons/Button";
 import Label from "../../components/Labels/Label";
@@ -85,18 +86,19 @@ class Timer extends Component {
 
 	lapTimer() {
 		// Lap only if timer is running and seconds aren't zero already
-		if (this.timer !== 0 && this.props.seconds !== 0) {
-			this.props.onCreateLap();
-		}
+		if (this.timer !== 0 && this.props.seconds !== 0)
+			this.props.onCreateLap(this.props.time);
 	}
 
 	resetTimer() {
 		// Getting back state to its original form
 		this.props.onReset();
+		this.props.onResetLaps();
 
 		// Also, if timer is running, we've to stop it too
 		if (this.timer !== 0) {
 			clearInterval(this.timer);
+			this.timer = 0;
 		}
 	}
 
@@ -158,17 +160,18 @@ const mapDispatchToProps = (dispatch) => {
 		onDecrement: (fn) => dispatch({ type: DECREMENT, secToTime: fn }),
 		onCountDown: (fn) => dispatch({ type: COUNTDOWN, secToTime: fn }),
 		onCountDownAtZero: () => dispatch({ type: COUNTDOWNATZERO }),
-		onCreateLap: () => dispatch({ type: CREATELAP }),
+		onCreateLap: (time) => dispatch({ type: CREATELAP, time: time }),
 		onRemoveLap: (id) => dispatch({ type: REMOVELAP, id: id }),
 		onReset: () => dispatch({ type: RESET }),
+		onResetLaps: () => dispatch({ type: RESETLAPS }),
 	};
 };
 
 const mapStateToProps = (state) => {
 	return {
-		time: state.time,
-		seconds: state.seconds,
-		laps: state.laps,
+		time: state.tmr.time,
+		seconds: state.tmr.seconds,
+		laps: state.lpr.laps,
 	};
 };
 
