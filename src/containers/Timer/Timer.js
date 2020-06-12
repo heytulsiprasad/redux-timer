@@ -94,6 +94,11 @@ class Timer extends Component {
         }
     }
 
+    removeLap(id) {
+        const laps = this.state.laps;
+        this.setState({ laps: laps.filter((item, index) => index !== id) });
+    }
+
     resetTimer() {
         this.setState({
             time: { h: 0, m: 0, s: 0 },
@@ -125,7 +130,7 @@ class Timer extends Component {
         if (this.state.laps.length !== 0)
             laps = this.state.laps.map((lap, id) => {
                 let { h, m, s } = this.timeFormatter(lap);
-                return <Label key={id} lapTime={`${h}:${m}:${s}`} />;
+                return <Label clicked={() => this.removeLap(id)} key={id} lapTime={`${h}:${m}:${s}`} />;
             });
 
         return (
