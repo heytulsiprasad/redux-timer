@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from "react";
 import Button from "../../components/Buttons/Button";
 import Label from "../../components/Labels/Label";
 
@@ -9,9 +9,9 @@ class Timer extends Component {
             curTime: {
                 curMin: 0,
                 curSec: 0,
-                curMilliSec: 0
-            }
-        }
+                curMilliSec: 0,
+            },
+        };
     }
 
     render() {
@@ -36,8 +36,8 @@ class Timer extends Component {
                     <Label lapTime={"00:00:01"} />
                 </div>
             </Fragment>
-        )
+        );
     }
 }
 
-export default Timer
+export default Timer;
